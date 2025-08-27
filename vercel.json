@@ -1,0 +1,29 @@
+{
+  "redirects": [
+    {
+      "source": "/mark",
+      "destination": "/mmmaaaaarrrk",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet, noimageindex"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "app/api/mark-snippet/route.ts": {
+      "maxDuration": 30
+    }
+  }
+}

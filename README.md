@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MARK - Attention Microsite
 
-## Getting Started
+A playful microsite that grabs Mark's attention with unique animated scenes on every page load.
 
-First, run the development server:
+## Features
 
+- **Dynamic Scene Selection**: AI-generated scenes preferred, with fallback to predefined animations
+- **Predefined Scenes**: Marquee, Radar Ping, Glitch, Emoji Rain, Spotlight
+- **AI-Generated Content**: Unique HTML/CSS/JS snippets via OpenAI API
+- **Scene Selector**: Footer interface to force specific scenes or test
+- **URL Sharing**: Share specific scenes with query parameters
+- **SEO Protection**: Prevents indexing by search engines
+- **Debug Mode**: View load times and scene details with `?debug=true`
+
+## Setup
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Configure environment variables:
+```bash
+cp .env.example .env.local
+# Add your OpenAI API key to .env.local
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Visit http://localhost:3000/mmmaaaaarrrk (or /mark for redirect)
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+Deploy to Vercel:
+```bash
+vercel
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set environment variables in Vercel dashboard:
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `MARK_SNIPPET_MODEL`: OpenAI model (default: gpt-4o-mini)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## URL Parameters
 
-## Deploy on Vercel
+- `?scene=<id>`: Force a specific scene
+- `?seed=<value>`: Seed for reproducible AI generation
+- `?debug=true`: Show debug information
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scene IDs
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `ai-markup`: AI-generated HTML/CSS/JS
+- `marquee`: Scrolling text
+- `radar`: Radar ping with target lock
+- `glitch`: TV static glitch effect
+- `emoji-rain`: Falling emojis with bouncing text
+- `spotlight`: Cursor reveals text
+
+## Performance
+
+- Target: <2s page load
+- AI scenes cached for sharing
+- Fallback snippets for instant loading
+- Optimized for mobile and desktop
