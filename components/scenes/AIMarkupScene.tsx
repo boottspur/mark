@@ -4,7 +4,7 @@ import { SceneProps } from '@/types/scene';
 import { useState, useEffect } from 'react';
 import { LoadingScene } from '../LoadingScene';
 
-export function AIMarkupScene({ seed }: SceneProps) {
+export function AIMarkupScene({ seed, message }: SceneProps) {
   const [htmlContent, setHtmlContent] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,7 +13,11 @@ export function AIMarkupScene({ seed }: SceneProps) {
     const fetchSnippet = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/mark-snippet${seed ? `?seed=${seed}` : ''}`);
+        const params = new URLSearchParams();
+        if (seed) params.append('seed', seed);
+        if (message) params.append('message', message);
+        
+        const response = await fetch(`/api/mark-snippet${params.toString() ? `?${params.toString()}` : ''}`);
         
         if (!response.ok) {
           throw new Error(`Failed to fetch snippet: ${response.status}`);
@@ -25,14 +29,14 @@ export function AIMarkupScene({ seed }: SceneProps) {
         console.error('Error fetching AI snippet:', err);
         setError(err instanceof Error ? err.message : 'Failed to load AI content');
         // Fallback to a default snippet
-        setHtmlContent(getDefaultSnippet());
+        setHtmlContent(getDefaultSnippet(message));
       } finally {
         setLoading(false);
       }
     };
 
     fetchSnippet();
-  }, [seed]);
+  }, [seed, message]);
 
   if (loading) {
     return <LoadingScene />;
@@ -54,7 +58,7 @@ export function AIMarkupScene({ seed }: SceneProps) {
   );
 }
 
-function getDefaultSnippet() {
+function getDefaultSnippet(message?: string) {
   const snippets = [
     // Pulsating neon
     `<!DOCTYPE html>
@@ -65,6 +69,7 @@ function getDefaultSnippet() {
     margin: 0;
     background: #000;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -81,14 +86,30 @@ function getDefaultSnippet() {
       0 0 80px #ff00ff;
     animation: pulse 2s infinite;
   }
+  .message {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    text-align: center;
+    font-size: 1.5rem;
+    max-width: 80%;
+    animation: fadeIn 1s 2s both;
+  }
   @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.1); opacity: 0.8; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
 </style>
 </head>
 <body>
   <div class="mark">MARK</div>
+  ${message ? `<div class="message">${decodeURIComponent(message)}</div>` : ''}
 </body>
 </html>`,
     // Matrix rain effect

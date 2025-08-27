@@ -47,7 +47,14 @@ Set environment variables in Vercel dashboard:
 
 - `?scene=<id>`: Force a specific scene
 - `?seed=<value>`: Seed for reproducible AI generation
+- `?message=<text>`: Display a custom message to Mark (URL encoded)
 - `?debug=true`: Show debug information
+
+### Example URLs
+
+- `/?message=Hey%20Mark%21%20Call%20me%20back` - Display a message with random scene
+- `/?scene=glitch&message=Urgent%3A%20Need%20your%20input` - Message with specific scene
+- `/?scene=ai-markup&message=Project%20deadline%20tomorrow&seed=123` - AI scene with message
 
 ## Scene IDs
 

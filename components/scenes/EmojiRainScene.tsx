@@ -12,7 +12,7 @@ interface FallingEmoji {
   duration: number;
 }
 
-export function EmojiRainScene({ text = 'MARK' }: SceneProps) {
+export function EmojiRainScene({ text = 'MARK', message }: SceneProps) {
   const [emojis, setEmojis] = useState<FallingEmoji[]>([]);
   
   useEffect(() => {
@@ -131,6 +131,27 @@ export function EmojiRainScene({ text = 'MARK' }: SceneProps) {
           repeat: Infinity,
         }}
       />
+      
+      {message && (
+        <motion.div
+          className="absolute bottom-24 left-1/2 -translate-x-1/2 max-w-4xl mx-auto px-6"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.5, duration: 1, type: 'spring', bounce: 0.4 }}
+        >
+          <p 
+            className="text-white text-center text-lg md:text-2xl font-bold leading-relaxed"
+            style={{ 
+              textShadow: '0 4px 8px rgba(0,0,0,0.9)',
+              background: 'linear-gradient(45deg, #ff006e, #8338ec)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            {decodeURIComponent(message)}
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }

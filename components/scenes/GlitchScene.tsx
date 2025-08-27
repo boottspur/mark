@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { SceneProps } from '@/types/scene';
 import { useEffect, useState } from 'react';
 
-export function GlitchScene({ text = 'MARK', primaryColor = '#ff0080' }: SceneProps) {
+export function GlitchScene({ text = 'MARK', primaryColor = '#ff0080', message }: SceneProps) {
   const [glitchText, setGlitchText] = useState(text);
   
   useEffect(() => {
@@ -142,6 +142,30 @@ export function GlitchScene({ text = 'MARK', primaryColor = '#ff0080' }: ScenePr
           }}
         />
       ))}
+      
+      {message && (
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 max-w-4xl mx-auto px-6"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: [0, 1, 1, 0] }}
+          transition={{ 
+            delay: 2, 
+            duration: 0.5, 
+            repeat: Infinity,
+            repeatDelay: 2 
+          }}
+        >
+          <p 
+            className="text-white text-center text-lg md:text-2xl font-medium leading-relaxed font-mono"
+            style={{ 
+              textShadow: '0 2px 4px rgba(0,0,0,0.8)',
+              color: primaryColor,
+            }}
+          >
+            {decodeURIComponent(message)}
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }

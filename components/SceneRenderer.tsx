@@ -65,6 +65,7 @@ function SceneContent() {
         text="MARK" 
         primaryColor="#ff006e"
         seed={searchParams.get('seed') || undefined}
+        message={searchParams.get('message') || undefined}
       />
       <SceneFooter
         scenes={sceneRegistry.getAll()}

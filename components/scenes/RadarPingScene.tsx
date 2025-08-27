@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { SceneProps } from '@/types/scene';
 import { useState, useEffect } from 'react';
 
-export function RadarPingScene({ text = 'MARK', primaryColor = '#00ff00' }: SceneProps) {
+export function RadarPingScene({ text = 'MARK', primaryColor = '#00ff00', message }: SceneProps) {
   const [locked, setLocked] = useState(false);
 
   useEffect(() => {
@@ -102,6 +102,25 @@ export function RadarPingScene({ text = 'MARK', primaryColor = '#00ff00' }: Scen
           </motion.div>
         )}
       </motion.div>
+      
+      {message && (
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 max-w-4xl mx-auto px-6"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 4, duration: 1 }}
+        >
+          <p 
+            className="text-white text-center text-lg md:text-2xl font-medium leading-relaxed"
+            style={{ 
+              textShadow: '0 2px 4px rgba(0,0,0,0.8)',
+              color: primaryColor,
+            }}
+          >
+            {decodeURIComponent(message)}
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }

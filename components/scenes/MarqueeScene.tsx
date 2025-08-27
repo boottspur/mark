@@ -3,9 +3,9 @@
 import { motion } from 'framer-motion';
 import { SceneProps } from '@/types/scene';
 
-export function MarqueeScene({ text = 'MARK', primaryColor = '#fff' }: SceneProps) {
+export function MarqueeScene({ text = 'MARK', primaryColor = '#fff', message }: SceneProps) {
   return (
-    <div className="fixed inset-0 bg-black flex items-center overflow-hidden">
+    <div className="fixed inset-0 bg-black flex flex-col items-center justify-center overflow-hidden">
       <motion.div
         className="whitespace-nowrap"
         animate={{
@@ -29,6 +29,22 @@ export function MarqueeScene({ text = 'MARK', primaryColor = '#fff' }: SceneProp
           {text} {text} {text}
         </span>
       </motion.div>
+      
+      {message && (
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 max-w-4xl mx-auto px-6"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 1 }}
+        >
+          <p 
+            className="text-white text-center text-lg md:text-2xl font-medium leading-relaxed"
+            style={{ textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}
+          >
+            {decodeURIComponent(message)}
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }

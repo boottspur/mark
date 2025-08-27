@@ -108,6 +108,7 @@ const FALLBACK_SNIPPETS = [
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const seed = searchParams.get('seed');
+  const message = searchParams.get('message');
   
   // Check for API key
   const apiKey = process.env.OPENAI_API_KEY;
@@ -126,7 +127,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const prompt = `Create a creative, animated HTML page that prominently features the word "MARK". 
+    let prompt = `Create a creative, animated HTML page that prominently features the word "MARK". 
 The page should be self-contained (single HTML file with embedded CSS and JavaScript).
 Requirements:
 - Full viewport, no scrolling
@@ -138,8 +139,16 @@ Requirements:
 - Keep it under 100 lines of code
 - Use modern CSS/JS features
 
-Be creative! Ideas: particle effects, 3D transforms, generative art, physics simulations, typography play, etc.
-Return ONLY the HTML code, starting with <!DOCTYPE html>`;
+Be creative! Ideas: particle effects, 3D transforms, generative art, physics simulations, typography play, etc.`;
+
+    if (message) {
+      prompt += `\n\nIMPORTANT: Include the following message prominently on the page (decoded from URL): "${decodeURIComponent(message)}"
+- Display this message below or near "MARK"
+- Make it clearly readable but stylistically consistent with the design
+- The message should appear after a brief delay (1-2 seconds)`;
+    }
+
+    prompt += `\n\nReturn ONLY the HTML code, starting with <!DOCTYPE html>`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',

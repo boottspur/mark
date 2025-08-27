@@ -3,6 +3,7 @@ export interface SceneProps {
   primaryColor?: string;
   secondaryColor?: string;
   seed?: string;
+  message?: string;
 }
 
 export interface Scene {
