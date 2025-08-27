@@ -25,8 +25,8 @@ export function SpotlightScene({ text = 'MARK', primaryColor = '#ffff00' }: Scen
       }
     };
 
-    window.addEventListener('mousemove', handleMove as any);
-    window.addEventListener('touchmove', handleMove as any);
+    window.addEventListener('mousemove', handleMove as EventListener);
+    window.addEventListener('touchmove', handleMove as EventListener);
     
     // Start with center position
     setMousePosition({
@@ -35,8 +35,8 @@ export function SpotlightScene({ text = 'MARK', primaryColor = '#ffff00' }: Scen
     });
 
     return () => {
-      window.removeEventListener('mousemove', handleMove as any);
-      window.removeEventListener('touchmove', handleMove as any);
+      window.removeEventListener('mousemove', handleMove as EventListener);
+      window.removeEventListener('touchmove', handleMove as EventListener);
     };
   }, []);
 

@@ -14,9 +14,9 @@ interface FallingEmoji {
 
 export function EmojiRainScene({ text = 'MARK' }: SceneProps) {
   const [emojis, setEmojis] = useState<FallingEmoji[]>([]);
-  const emojiSet = ['👀', '🎯', '⚡', '🔥', '💫', '✨', '🌟', '💥', '🚀', '🎪', '🎨', '🎭'];
   
   useEffect(() => {
+    const emojiSet = ['👀', '🎯', '⚡', '🔥', '💫', '✨', '🌟', '💥', '🚀', '🎪', '🎨', '🎭'];
     const newEmojis: FallingEmoji[] = [];
     for (let i = 0; i < 30; i++) {
       // Use deterministic values based on index

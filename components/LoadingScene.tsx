@@ -9,7 +9,7 @@ export function LoadingScene() {
   // Generate consistent rotation values based on index
   const rotations = useMemo(() => 
     letters.map((_, i) => (i * 47 % 360) - 180),
-    []
+    [letters]
   );
   
   return (

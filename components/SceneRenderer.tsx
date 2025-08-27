@@ -25,7 +25,6 @@ function SceneContent() {
     setLoadStartTime(Date.now());
     
     const sceneId = searchParams.get('scene');
-    const seed = searchParams.get('seed');
     
     let scene: Scene | undefined;
     
@@ -52,7 +51,6 @@ function SceneContent() {
   }, [searchParams, mounted]);
 
   const debugMode = searchParams.get('debug') === 'true';
-  const seed = searchParams.get('seed');
   const loadTime = Date.now() - loadStartTime;
 
   if (!mounted || !currentScene) {
@@ -66,7 +64,7 @@ function SceneContent() {
       <SceneComponent 
         text="MARK" 
         primaryColor="#ff006e"
-        seed={seed || undefined}
+        seed={searchParams.get('seed') || undefined}
       />
       <SceneFooter
         scenes={sceneRegistry.getAll()}
