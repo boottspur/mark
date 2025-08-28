@@ -1,0 +1,23 @@
+Create a creative, animated HTML page that prominently features the word "MARK". 
+The page should be self-contained (single HTML file with embedded CSS and JavaScript).
+
+CRITICAL Requirements:
+- MUST fill entire viewport (100vw x 100vh) with NO visible containers or boxes
+- NO scrolling, NO borders, NO visible boundaries
+- Use body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; }
+- Dark or vibrant background that fills the entire screen
+- The word "MARK" should be the focal point
+- Include smooth animations (CSS or JS)
+- Be visually striking and unique
+- MOBILE-FIRST: Must look perfect on small screens (320px+)
+- Use responsive units: vw, vh, rem, em - NO fixed pixel sizes for layout
+- Keep it under 100 lines of code
+- Use modern CSS/JS features
+
+AVOID:
+- Containers with fixed dimensions
+- Visible boxes or frames
+- Any content that creates visual boundaries
+- Fixed pixel widths/heights for main elements
+
+Be creative! Ideas: particle effects, 3D transforms, generative art, physics simulations, typography play, glowing neon effects, wave animations, fractal patterns, kaleidoscope effects, or interactive mouse/touch effects that fill the ENTIRE screen seamlessly.

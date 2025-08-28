@@ -1,4 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs/promises';
+import path from 'path';
+
+// Helper function to load prompt files
+async function loadPrompt(filename: string): Promise<string> {
+  try {
+    const filePath = path.join(process.cwd(), 'prompts', 'ai-scenes', filename);
+    return await fs.readFile(filePath, 'utf-8');
+  } catch (error) {
+    console.error(`Error loading prompt file ${filename}:`, error);
+    // Return fallback prompts if files can't be loaded
+    if (filename === 'system.txt') {
+      return 'You are an expert creative coder. Generate only valid HTML code without any markdown or explanation.';
+    }
+    if (filename === 'main-scene.txt') {
+      return 'Create a creative, animated HTML page that prominently features the word "MARK".';
+    }
+    return '';
+  }
+}
 
 const FALLBACK_SNIPPETS = [
   // Wave animation
@@ -127,38 +147,23 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    let prompt = `Create a creative, animated HTML page that prominently features the word "MARK". 
-The page should be self-contained (single HTML file with embedded CSS and JavaScript).
+    // Load prompts from files
+    const [systemPrompt, mainScenePrompt, messageAddonPrompt, outputFormatPrompt] = await Promise.all([
+      loadPrompt('system.txt'),
+      loadPrompt('main-scene.txt'),
+      loadPrompt('message-addon.txt'),
+      loadPrompt('output-format.txt'),
+    ]);
 
-CRITICAL Requirements:
-- MUST fill entire viewport (100vw x 100vh) with NO visible containers or boxes
-- NO scrolling, NO borders, NO visible boundaries
-- Use body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; }
-- Dark or vibrant background that fills the entire screen
-- The word "MARK" should be the focal point
-- Include smooth animations (CSS or JS)
-- Be visually striking and unique
-- MOBILE-FIRST: Must look perfect on small screens (320px+)
-- Use responsive units: vw, vh, rem, em - NO fixed pixel sizes for layout
-- Keep it under 100 lines of code
-- Use modern CSS/JS features
-
-AVOID:
-- Containers with fixed dimensions
-- Visible boxes or frames
-- Any content that creates visual boundaries
-- Fixed pixel widths/heights for main elements
-
-Be creative! Ideas: particle effects, 3D transforms, generative art, physics simulations, typography play that fills the ENTIRE screen seamlessly.`;
+    // Build the complete prompt
+    let prompt = mainScenePrompt;
 
     if (message) {
-      prompt += `\n\nIMPORTANT: Include the following message prominently on the page (decoded from URL): "${decodeURIComponent(message)}"
-- Display this message below or near "MARK"
-- Make it clearly readable but stylistically consistent with the design
-- The message should appear after a brief delay (1-2 seconds)`;
+      const messagePrompt = messageAddonPrompt.replace('{MESSAGE}', decodeURIComponent(message));
+      prompt += `\n\n${messagePrompt}`;
     }
 
-    prompt += `\n\nReturn ONLY the HTML code, starting with <!DOCTYPE html>`;
+    prompt += `\n\n${outputFormatPrompt}`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -171,7 +176,7 @@ Be creative! Ideas: particle effects, 3D transforms, generative art, physics sim
         messages: [
           {
             role: 'system',
-            content: 'You are an expert creative coder. Generate only valid HTML code without any markdown or explanation.',
+            content: systemPrompt,
           },
           {
             role: 'user',

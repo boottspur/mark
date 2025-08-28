@@ -1,0 +1,7 @@
+IMPORTANT: Include the following message prominently on the page (decoded from URL): "{MESSAGE}"
+- Display this message below or near "MARK"
+- Make it clearly readable but stylistically consistent with the design
+- The message should appear after a brief delay (1-2 seconds)
+- Use responsive font sizing (clamp, vw units, or similar)
+- Ensure it's readable on mobile devices
+- Position it so it doesn't overlap with the main "MARK" text
