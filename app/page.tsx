@@ -100,7 +100,7 @@ export default function ConfigPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            What do you need Mark to do that he isn't doing?
+            What do you need Mark to do that he isn&apos;t doing?
           </motion.p>
         </motion.div>
 
