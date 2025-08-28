@@ -17,5 +17,9 @@ const SceneRenderer = dynamic(
 );
 
 export default function MarkPage() {
-  return <SceneRenderer />;
+  return (
+    <div className="scenes-page">
+      <SceneRenderer />
+    </div>
+  );
 }
