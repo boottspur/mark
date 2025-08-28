@@ -73,8 +73,8 @@ export default function ConfigPage() {
     : messageOptions.find(opt => opt.id === selectedOption)?.message || '';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-8 md:p-12 flex items-center justify-center">
-      <div className="max-w-2xl w-full mx-auto px-6 md:px-4 lg:px-0">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-12 md:p-8 flex items-center justify-center">
+      <div className="max-w-2xl w-full mx-auto px-8 md:px-4 lg:px-0">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -115,7 +115,7 @@ export default function ConfigPage() {
             <motion.button
               key={option.id}
               onClick={() => setSelectedOption(option.id)}
-              className={`w-full p-8 md:p-10 mx-4 md:mx-2 lg:mx-0 rounded-2xl border-2 transition-all duration-300 ${
+              className={`w-full p-12 md:p-8 mx-6 md:mx-2 lg:mx-0 rounded-2xl border-2 transition-all duration-300 ${
                 selectedOption === option.id
                   ? 'border-white bg-white/10 shadow-lg shadow-white/20'
                   : 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10'
@@ -152,13 +152,13 @@ export default function ConfigPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-12 md:mb-16 mx-4 md:mx-2 lg:mx-0"
+              className="mb-12 md:mb-16 mx-6 md:mx-2 lg:mx-0"
             >
               <textarea
                 value={customMessage}
                 onChange={(e) => setCustomMessage(e.target.value)}
                 placeholder="Tell Mark exactly what you need him to do..."
-                className="w-full p-8 md:p-10 rounded-2xl border-2 border-white/20 bg-white/10 text-white placeholder-purple-200 resize-none focus:border-white focus:outline-none focus:bg-white/20 transition-all duration-300 text-base md:text-lg leading-relaxed"
+                className="w-full p-12 md:p-8 rounded-2xl border-2 border-white/20 bg-white/10 text-white placeholder-purple-200 resize-none focus:border-white focus:outline-none focus:bg-white/20 transition-all duration-300 text-base md:text-lg leading-relaxed"
                 rows={4}
               />
             </motion.div>
@@ -191,11 +191,11 @@ export default function ConfigPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-8 md:p-12 mx-4 md:mx-2 lg:mx-0"
+              className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-12 md:p-8 mx-6 md:mx-2 lg:mx-0"
             >
               <h3 className="text-white font-bold text-lg md:text-xl mb-8">Your Mark Link:</h3>
               <div className="flex flex-col md:flex-row items-stretch md:items-center space-y-4 md:space-y-0 md:space-x-6">
-                <div className="flex-1 p-6 md:p-8 bg-black/20 rounded-lg text-purple-100 font-mono text-sm md:text-base break-all leading-relaxed">
+                <div className="flex-1 p-8 md:p-6 bg-black/20 rounded-lg text-purple-100 font-mono text-sm md:text-base break-all leading-relaxed">
                   {generatedUrl}
                 </div>
                 <motion.button
