@@ -129,17 +129,27 @@ export async function GET(request: NextRequest) {
   try {
     let prompt = `Create a creative, animated HTML page that prominently features the word "MARK". 
 The page should be self-contained (single HTML file with embedded CSS and JavaScript).
-Requirements:
-- Full viewport, no scrolling
-- Dark or vibrant background
+
+CRITICAL Requirements:
+- MUST fill entire viewport (100vw x 100vh) with NO visible containers or boxes
+- NO scrolling, NO borders, NO visible boundaries
+- Use body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; }
+- Dark or vibrant background that fills the entire screen
 - The word "MARK" should be the focal point
-- Include animations (CSS or JS)
+- Include smooth animations (CSS or JS)
 - Be visually striking and unique
-- Mobile-friendly
+- MOBILE-FIRST: Must look perfect on small screens (320px+)
+- Use responsive units: vw, vh, rem, em - NO fixed pixel sizes for layout
 - Keep it under 100 lines of code
 - Use modern CSS/JS features
 
-Be creative! Ideas: particle effects, 3D transforms, generative art, physics simulations, typography play, etc.`;
+AVOID:
+- Containers with fixed dimensions
+- Visible boxes or frames
+- Any content that creates visual boundaries
+- Fixed pixel widths/heights for main elements
+
+Be creative! Ideas: particle effects, 3D transforms, generative art, physics simulations, typography play that fills the ENTIRE screen seamlessly.`;
 
     if (message) {
       prompt += `\n\nIMPORTANT: Include the following message prominently on the page (decoded from URL): "${decodeURIComponent(message)}"

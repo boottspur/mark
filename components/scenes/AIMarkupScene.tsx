@@ -60,23 +60,25 @@ export function AIMarkupScene({ seed, message }: SceneProps) {
 
 function getDefaultSnippet(message?: string) {
   const snippets = [
-    // Pulsating neon
+    // Pulsating neon - Full screen
     `<!DOCTYPE html>
 <html>
 <head>
 <style>
-  body {
-    margin: 0;
-    background: #000;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body, html {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(45deg, #000, #1a0033);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     overflow: hidden;
+    font-family: Arial, sans-serif;
   }
   .mark {
-    font-size: 20vw;
+    font-size: clamp(8rem, 20vw, 25rem);
     font-weight: 900;
     color: #fff;
     text-shadow: 
@@ -85,24 +87,26 @@ function getDefaultSnippet(message?: string) {
       0 0 40px #ff00ff,
       0 0 80px #ff00ff;
     animation: pulse 2s infinite;
+    line-height: 0.8;
   }
   .message {
     position: fixed;
-    bottom: 2rem;
+    bottom: 5vh;
     left: 50%;
     transform: translateX(-50%);
     color: #fff;
     text-align: center;
-    font-size: 1.5rem;
-    max-width: 80%;
+    font-size: clamp(1rem, 4vw, 2rem);
+    max-width: 90vw;
     animation: fadeIn 1s 2s both;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
   }
   @keyframes pulse {
     0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 0.8; }
   }
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    from { opacity: 0; transform: translateX(-50%) translateY(2vh); }
     to { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
 </style>
@@ -112,44 +116,75 @@ function getDefaultSnippet(message?: string) {
   ${message ? `<div class="message">${decodeURIComponent(message)}</div>` : ''}
 </body>
 </html>`,
-    // Matrix rain effect
+    // Matrix rain effect - Full screen responsive
     `<!DOCTYPE html>
 <html>
 <head>
 <style>
-  body {
-    margin: 0;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body, html {
+    width: 100vw;
+    height: 100vh;
     background: #000;
     color: #0f0;
     font-family: monospace;
     overflow: hidden;
   }
-  canvas { display: block; }
+  canvas { 
+    display: block; 
+    width: 100vw !important;
+    height: 100vh !important;
+  }
   .mark {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 15vw;
-    font-weight: bold;
+    font-size: clamp(6rem, 15vw, 20rem);
+    font-weight: 900;
     color: #fff;
     z-index: 10;
     text-shadow: 0 0 20px #0f0;
+    line-height: 0.8;
+  }
+  .message {
+    position: fixed;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #0f0;
+    text-align: center;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    max-width: 90vw;
+    z-index: 10;
+    text-shadow: 0 0 10px #0f0;
+    animation: fadeIn 1s 3s both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 </style>
 </head>
 <body>
   <canvas id="c"></canvas>
   <div class="mark">MARK</div>
+  ${message ? `<div class="message">${decodeURIComponent(message)}</div>` : ''}
   <script>
     const c = document.getElementById('c');
     const ctx = c.getContext('2d');
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
+    
+    function resize() {
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    
     const letters = 'MARK01'.split('');
-    const fontSize = 16;
-    const columns = c.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
+    const fontSize = Math.max(12, window.innerWidth * 0.02);
+    const columns = Math.floor(c.width / fontSize);
+    const drops = Array(columns).fill(1);
     
     function draw() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
