@@ -30,7 +30,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-4. Visit http://localhost:3000/mmmaaaaarrrk (or /mark for redirect)
+4. Visit http://localhost:3000 (config page) or http://localhost:3000/scenes (scenes page)
 
 ## Deployment
 
@@ -52,9 +52,10 @@ Set environment variables in Vercel dashboard:
 
 ### Example URLs
 
-- `/?message=Hey%20Mark%21%20Call%20me%20back` - Display a message with random scene
-- `/?scene=glitch&message=Urgent%3A%20Need%20your%20input` - Message with specific scene
-- `/?scene=ai-markup&message=Project%20deadline%20tomorrow&seed=123` - AI scene with message
+- `/scenes?message=Hey%20Mark%21%20Call%20me%20back` - Display a message with random scene
+- `/scenes?scene=glitch&message=Urgent%3A%20Need%20your%20input` - Message with specific scene
+- `/scenes?scene=ai-markup&message=Project%20deadline%20tomorrow&seed=123` - AI scene with message
+- `/` - Configuration page to build custom links
 
 ## Scene IDs
 

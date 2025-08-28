@@ -2,7 +2,7 @@
 
 ## Option 1: Subdomain Deployment (Recommended)
 
-Deploy to `apps.chrismerchant.work/mmmaaaaarrrk`
+Deploy to `mark.chrismerchant.work`
 
 ### Step 1: Deploy to Vercel
 
@@ -23,7 +23,7 @@ vercel
 ### Step 2: Configure Custom Domain
 
 1. In Vercel Dashboard → Project Settings → Domains
-2. Add domain: `apps.chrismerchant.work`
+2. Add domain: `mark.chrismerchant.work`
 3. Vercel will show DNS records needed
 
 ### Step 3: DNS Configuration
@@ -31,7 +31,7 @@ vercel
 Add CNAME record to your DNS provider:
 ```
 Type: CNAME
-Name: apps
+Name: mark
 Value: cname.vercel-dns.com
 ```
 
@@ -50,13 +50,13 @@ Copy the values from your `.env.local` file.
 ### Step 5: Test Deployment
 
 Visit:
-- `https://apps.chrismerchant.work/` - Apps directory page
-- `https://apps.chrismerchant.work/mmmaaaaarrrk` - Mark's main page
-- `https://apps.chrismerchant.work/mark` - Redirect to Mark's page
+- `https://mark.chrismerchant.work/` - Config page
+- `https://mark.chrismerchant.work/scenes` - Mark scenes page
+- `https://mark.chrismerchant.work/mark` - Redirect to scenes
 
 ## Option 2: Path-based Deployment
 
-Deploy to existing `chrismerchant.work/mmmaaaaarrrk`
+Deploy to existing `chrismerchant.work/mark`
 
 ### Requirements:
 - Access to main site deployment
@@ -65,13 +65,13 @@ Deploy to existing `chrismerchant.work/mmmaaaaarrrk`
 
 ## Post-Deployment Checklist
 
-- [ ] All redirects working (`/` → `/mmmaaaaarrrk`, `/mark` → `/mmmaaaaarrrk`)
+- [ ] All redirects working (`/mark` → `/scenes`)
 - [ ] AI scenes generating (check `/api/mark-snippet`)
 - [ ] Scene selector footer functional
 - [ ] Debug mode accessible (`?debug=true`)
 - [ ] Mobile responsive
 - [ ] SEO properly blocked (check robots.txt)
-- [ ] Share URLs working (`?scene=glitch&seed=123`)
+- [ ] Share URLs working (`/scenes?scene=glitch&seed=123`)
 
 ## Production Monitoring
 

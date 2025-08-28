@@ -1,34 +1,242 @@
-export default function Home() {
+'use client';
+
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+
+const messageOptions = [
+  {
+    id: 'wake-up',
+    text: 'Get out of bed already',
+    message: 'WAKE UP MARK! The world needs you!',
+    emoji: '🛏️',
+    color: 'from-orange-400 to-red-500'
+  },
+  {
+    id: 'respond',
+    text: 'Respond to me',
+    message: 'Mark... please respond. I miss our conversations.',
+    emoji: '📱',
+    color: 'from-blue-400 to-purple-500'
+  },
+  {
+    id: 'commit',
+    text: 'Commit to plans',
+    message: 'Stop being wishy-washy! Make a decision and stick to it!',
+    emoji: '📅',
+    color: 'from-green-400 to-teal-500'
+  },
+  {
+    id: 'portfolio',
+    text: 'Rebalance my portfolio',
+    message: 'The markets are moving, Mark! Time to rebalance!',
+    emoji: '📈',
+    color: 'from-yellow-400 to-orange-500'
+  },
+  {
+    id: 'other',
+    text: 'Other',
+    message: '',
+    emoji: '✨',
+    color: 'from-purple-400 to-pink-500'
+  }
+];
+
+export default function ConfigPage() {
+  const [selectedOption, setSelectedOption] = useState<string>('');
+  const [customMessage, setCustomMessage] = useState('');
+  const [generatedUrl, setGeneratedUrl] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  const generateUrl = () => {
+    const option = messageOptions.find(opt => opt.id === selectedOption);
+    const message = selectedOption === 'other' ? customMessage : option?.message || '';
+    
+    if (message.trim()) {
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+      const encodedMessage = encodeURIComponent(message);
+      const url = `${baseUrl}/scenes?message=${encodedMessage}`;
+      setGeneratedUrl(url);
+    }
+  };
+
+  const copyToClipboard = async () => {
+    if (generatedUrl) {
+      await navigator.clipboard.writeText(generatedUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const currentMessage = selectedOption === 'other' 
+    ? customMessage 
+    : messageOptions.find(opt => opt.id === selectedOption)?.message || '';
+
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="max-w-2xl mx-auto text-center space-y-8">
-        <h1 className="text-6xl font-bold mb-8">Apps</h1>
-        <p className="text-xl text-gray-400 mb-12">
-          Experimental projects and demos
-        </p>
-        
-        <div className="grid gap-6">
-          <a 
-            href="/mmmaaaaarrrk" 
-            className="block p-6 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors"
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-6 flex items-center justify-center">
+      <div className="max-w-2xl w-full">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
+        >
+          <motion.h1 
+            className="text-5xl md:text-7xl font-black text-white mb-4"
+            animate={{ 
+              textShadow: [
+                '0 0 20px rgba(255,255,255,0.5)',
+                '0 0 40px rgba(255,255,255,0.8)',
+                '0 0 20px rgba(255,255,255,0.5)'
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            <h2 className="text-2xl font-bold mb-2">MARK</h2>
-            <p className="text-gray-400">
-              An attention-grabbing microsite with AI-generated animations
-            </p>
-          </a>
-          
-          <div className="p-6 bg-gray-900/50 rounded-lg border border-gray-700 border-dashed">
-            <h2 className="text-xl font-bold mb-2 text-gray-500">More apps coming soon...</h2>
-            <p className="text-gray-600">
-              This space reserved for future experiments
-            </p>
-          </div>
-        </div>
-        
-        <footer className="text-sm text-gray-600 pt-12">
-          <p>Built by <a href="https://chrismerchant.work" className="hover:text-white transition-colors">Chris Merchant</a></p>
-        </footer>
+            MARK CONFIG
+          </motion.h1>
+          <motion.p 
+            className="text-xl md:text-2xl text-purple-200 font-semibold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            What do you need Mark to do that he isn't doing?
+          </motion.p>
+        </motion.div>
+
+        {/* Options */}
+        <motion.div 
+          className="space-y-4 mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          {messageOptions.map((option, index) => (
+            <motion.button
+              key={option.id}
+              onClick={() => setSelectedOption(option.id)}
+              className={`w-full p-6 rounded-2xl border-2 transition-all duration-300 ${
+                selectedOption === option.id
+                  ? 'border-white bg-white/10 shadow-lg shadow-white/20'
+                  : 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10'
+              }`}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1 + index * 0.1 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <div className="flex items-center space-x-4">
+                <motion.div
+                  className={`text-4xl p-3 rounded-full bg-gradient-to-r ${option.color}`}
+                  animate={selectedOption === option.id ? { rotate: [0, 10, -10, 0] } : {}}
+                  transition={{ duration: 0.5 }}
+                >
+                  {option.emoji}
+                </motion.div>
+                <div className="flex-1 text-left">
+                  <h3 className="text-xl font-bold text-white">{option.text}</h3>
+                  {option.id !== 'other' && (
+                    <p className="text-purple-200 mt-1">{option.message}</p>
+                  )}
+                </div>
+              </div>
+            </motion.button>
+          ))}
+        </motion.div>
+
+        {/* Custom Message Input */}
+        <AnimatePresence>
+          {selectedOption === 'other' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mb-8"
+            >
+              <textarea
+                value={customMessage}
+                onChange={(e) => setCustomMessage(e.target.value)}
+                placeholder="Tell Mark exactly what you need him to do..."
+                className="w-full p-6 rounded-2xl border-2 border-white/20 bg-white/10 text-white placeholder-purple-200 resize-none focus:border-white focus:outline-none focus:bg-white/20 transition-all duration-300"
+                rows={4}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Generate Button */}
+        <AnimatePresence>
+          {selectedOption && currentMessage.trim() && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center mb-8"
+            >
+              <motion.button
+                onClick={generateUrl}
+                className="px-12 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xl rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Generate Mark Link! 🚀
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Generated URL */}
+        <AnimatePresence>
+          {generatedUrl && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-6"
+            >
+              <h3 className="text-white font-bold text-lg mb-4">Your Mark Link:</h3>
+              <div className="flex items-center space-x-4">
+                <div className="flex-1 p-4 bg-black/20 rounded-lg text-purple-100 font-mono text-sm break-all">
+                  {generatedUrl}
+                </div>
+                <motion.button
+                  onClick={copyToClipboard}
+                  className="px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {copied ? '✓ Copied!' : 'Copy'}
+                </motion.button>
+              </div>
+              <div className="mt-4 flex space-x-4">
+                <Link 
+                  href={generatedUrl}
+                  target="_blank"
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 inline-block"
+                >
+                  Preview Link 👀
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Footer */}
+        <motion.div
+          className="text-center mt-12 text-purple-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2 }}
+        >
+          <p className="text-sm">
+            Built with ✨ whimsy and 💜 persistence
+          </p>
+          <Link 
+            href="/scenes"
+            className="text-purple-200 hover:text-white transition-colors duration-300 underline mt-2 inline-block"
+          >
+            View Mark Scenes →
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

@@ -148,19 +148,25 @@ export async function GET(request: NextRequest) {
 
   try {
     // Load prompts from files
-    const [systemPrompt, mainScenePrompt, messageAddonPrompt, outputFormatPrompt] = await Promise.all([
+    const [systemPrompt, mainScenePrompt, messageAddonPrompt, outputFormatPrompt, themeHintsPrompt] = await Promise.all([
       loadPrompt('system.txt'),
       loadPrompt('main-scene.txt'),
       loadPrompt('message-addon.txt'),
       loadPrompt('output-format.txt'),
+      loadPrompt('theme-hints.txt'),
     ]);
 
     // Build the complete prompt
     let prompt = mainScenePrompt;
 
     if (message) {
-      const messagePrompt = messageAddonPrompt.replace('{MESSAGE}', decodeURIComponent(message));
+      const decodedMessage = decodeURIComponent(message);
+      const messagePrompt = messageAddonPrompt.replace('{MESSAGE}', decodedMessage);
       prompt += `\n\n${messagePrompt}`;
+      
+      // Add theme hints based on message content
+      prompt += `\n\n${themeHintsPrompt}`;
+      prompt += `\n\nMessage to display: "${decodedMessage}" - Use the theme hints above to style appropriately.`;
     }
 
     prompt += `\n\n${outputFormatPrompt}`;

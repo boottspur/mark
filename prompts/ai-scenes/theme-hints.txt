@@ -1,0 +1,30 @@
+THEME STYLING HINTS based on message content:
+
+If message contains "WAKE UP" or "bed" or similar wake-up themes:
+- Use bright, energetic colors: oranges, yellows, reds
+- Consider sunrise/alarm clock motifs
+- Fast, urgent animations
+- Maybe flashing or pulsing effects
+
+If message contains "respond" or "conversation" or communication themes:
+- Use cool blues and purples
+- Consider phone/message bubble aesthetics
+- Gentle pulsing or wave animations
+- Maybe notification-style effects
+
+If message contains "commit" or "decision" or planning themes:
+- Use greens and teals
+- Consider calendar/planning motifs
+- Steady, methodical animations
+- Maybe checkbox or progress bar effects
+
+If message contains "portfolio" or "market" or financial themes:
+- Use yellows, oranges, and greens
+- Consider chart/graph aesthetics
+- Up/down trending animations
+- Maybe stock ticker or graph line effects
+
+For other/custom messages:
+- Use a mix of vibrant colors
+- Let the message content inspire the theme
+- Be creative and interpretive
