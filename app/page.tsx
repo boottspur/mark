@@ -73,16 +73,16 @@ export default function ConfigPage() {
     : messageOptions.find(opt => opt.id === selectedOption)?.message || '';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-6 md:p-8 flex items-center justify-center">
-      <div className="max-w-2xl w-full mx-auto px-4 md:px-0">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-8 md:p-12 flex items-center justify-center">
+      <div className="max-w-2xl w-full mx-auto px-6 md:px-4 lg:px-0">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-10 md:mb-16"
+          className="text-center mb-12 md:mb-20"
         >
           <motion.h1 
-            className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-8"
             animate={{ 
               textShadow: [
                 '0 0 20px rgba(255,255,255,0.5)',
@@ -95,7 +95,7 @@ export default function ConfigPage() {
             MARK CONFIG
           </motion.h1>
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl text-purple-200 font-semibold px-6 md:px-4"
+            className="text-lg sm:text-xl md:text-2xl text-purple-200 font-semibold px-8 md:px-6 lg:px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -106,7 +106,7 @@ export default function ConfigPage() {
 
         {/* Options */}
         <motion.div 
-          className="space-y-4 md:space-y-6 mb-8 md:mb-12"
+          className="space-y-6 md:space-y-8 mb-12 md:mb-16"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
@@ -115,7 +115,7 @@ export default function ConfigPage() {
             <motion.button
               key={option.id}
               onClick={() => setSelectedOption(option.id)}
-              className={`w-full p-6 sm:p-8 mx-2 sm:mx-0 rounded-2xl border-2 transition-all duration-300 ${
+              className={`w-full p-8 md:p-10 mx-4 md:mx-2 lg:mx-0 rounded-2xl border-2 transition-all duration-300 ${
                 selectedOption === option.id
                   ? 'border-white bg-white/10 shadow-lg shadow-white/20'
                   : 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10'
@@ -126,18 +126,18 @@ export default function ConfigPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div className="flex items-center space-x-3 sm:space-x-4">
+              <div className="flex items-center space-x-4 md:space-x-6">
                 <motion.div
-                  className={`text-3xl sm:text-4xl p-2 sm:p-3 rounded-full bg-gradient-to-r ${option.color}`}
+                  className={`text-4xl md:text-5xl p-3 md:p-4 rounded-full bg-gradient-to-r ${option.color}`}
                   animate={selectedOption === option.id ? { rotate: [0, 10, -10, 0] } : {}}
                   transition={{ duration: 0.5 }}
                 >
                   {option.emoji}
                 </motion.div>
                 <div className="flex-1 text-left">
-                  <h3 className="text-lg sm:text-xl font-bold text-white">{option.text}</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-white">{option.text}</h3>
                   {option.id !== 'other' && (
-                    <p className="text-purple-200 mt-2 text-sm sm:text-base leading-relaxed">{option.message}</p>
+                    <p className="text-purple-200 mt-3 text-base md:text-lg leading-relaxed">{option.message}</p>
                   )}
                 </div>
               </div>
@@ -152,13 +152,13 @@ export default function ConfigPage() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-8 md:mb-12 mx-2 sm:mx-0"
+              className="mb-12 md:mb-16 mx-4 md:mx-2 lg:mx-0"
             >
               <textarea
                 value={customMessage}
                 onChange={(e) => setCustomMessage(e.target.value)}
                 placeholder="Tell Mark exactly what you need him to do..."
-                className="w-full p-6 sm:p-8 rounded-2xl border-2 border-white/20 bg-white/10 text-white placeholder-purple-200 resize-none focus:border-white focus:outline-none focus:bg-white/20 transition-all duration-300 text-sm sm:text-base leading-relaxed"
+                className="w-full p-8 md:p-10 rounded-2xl border-2 border-white/20 bg-white/10 text-white placeholder-purple-200 resize-none focus:border-white focus:outline-none focus:bg-white/20 transition-all duration-300 text-base md:text-lg leading-relaxed"
                 rows={4}
               />
             </motion.div>
@@ -171,11 +171,11 @@ export default function ConfigPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-center mb-8 md:mb-12"
+              className="text-center mb-12 md:mb-16"
             >
               <motion.button
                 onClick={generateUrl}
-                className="px-8 sm:px-12 py-3 sm:py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-lg sm:text-xl rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                className="px-10 md:px-16 py-4 md:py-5 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xl md:text-2xl rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -191,27 +191,27 @@ export default function ConfigPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-6 md:p-8 mx-2 sm:mx-0"
+              className="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-8 md:p-12 mx-4 md:mx-2 lg:mx-0"
             >
-              <h3 className="text-white font-bold text-base sm:text-lg mb-6">Your Mark Link:</h3>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <div className="flex-1 p-5 bg-black/20 rounded-lg text-purple-100 font-mono text-sm break-all leading-relaxed">
+              <h3 className="text-white font-bold text-lg md:text-xl mb-8">Your Mark Link:</h3>
+              <div className="flex flex-col md:flex-row items-stretch md:items-center space-y-4 md:space-y-0 md:space-x-6">
+                <div className="flex-1 p-6 md:p-8 bg-black/20 rounded-lg text-purple-100 font-mono text-sm md:text-base break-all leading-relaxed">
                   {generatedUrl}
                 </div>
                 <motion.button
                   onClick={copyToClipboard}
-                  className="px-4 sm:px-6 py-3 bg-gradient-to-r from-green-500 to-teal-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 text-sm sm:text-base whitespace-nowrap"
+                  className="px-6 md:px-8 py-4 bg-gradient-to-r from-green-500 to-teal-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 text-base md:text-lg whitespace-nowrap"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {copied ? '✓ Copied!' : 'Copy'}
                 </motion.button>
               </div>
-              <div className="mt-6 flex justify-center">
+              <div className="mt-8 flex justify-center">
                 <Link 
                   href={generatedUrl}
                   target="_blank"
-                  className="px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 inline-block text-sm sm:text-base"
+                  className="px-6 md:px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 inline-block text-base md:text-lg"
                 >
                   Preview Link 👀
                 </Link>
@@ -222,7 +222,7 @@ export default function ConfigPage() {
 
         {/* Footer */}
         <motion.div
-          className="text-center mt-12 md:mt-16 text-purple-300 px-6"
+          className="text-center mt-16 md:mt-24 text-purple-300 px-8 md:px-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2 }}
